@@ -55,5 +55,24 @@ const forgetPassword = (data) => {
     });
 };
 
+const resetPassword = (data,token) => {
+  let reqobj = {
+    method: "post",
+    url: url.baseURL+"/user/reset/"+token,
+    headers: {
+      "Content-type": "application/json",
+    },
+    data: data,
+  };
+  console.log(reqobj.url);
+  return AxiosHelper.post(reqobj)
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
-export default { register, login, forgetPassword };
+export default { register, login, forgetPassword, resetPassword };
