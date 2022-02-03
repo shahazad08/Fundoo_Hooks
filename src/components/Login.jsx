@@ -59,14 +59,12 @@ const Login = () => {
 
   return (
     <form id="login-form" onSubmit={handleSubmit} autoComplete="off">
-      <p>FlagState{JSON.stringify(passwordError)}</p>
+    
       <Paper elevation={5} sx={{ p: 4 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="h4">
-              <RainbowText lightness={0.5} saturation={1}>
-                Fundoo Note
-              </RainbowText>
+          <Typography variant="h5">
+              <span className="multicolortext">Fundoo Note</span>
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -106,7 +104,7 @@ const Login = () => {
             />
           </Grid>
           <Grid item xs={6} align="left">
-            <Button id="link-btn">Forgot password</Button>
+            <Button id="link-btn" component={Link} to="/forgot">Forgot password</Button>
           </Grid>
           <Grid item xs={6} align="right">
             <Button variant="contained" type="submit">
