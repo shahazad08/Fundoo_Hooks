@@ -9,4 +9,13 @@ const post=(requestObject)=> {
         data:requestObject.data
     });
 };
-export default {post};
+
+const get = (requestObject) => {
+    console.log("Get Data Result Response", requestObject);
+    return axios({
+      method: requestObject.method,
+      url: requestObject.url,
+      headers: requestObject.headers
+    });
+  };
+export default {post, get};
