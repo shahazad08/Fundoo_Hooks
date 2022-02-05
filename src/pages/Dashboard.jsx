@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import Appbar from "../components/Appbar";
 import Sidebar from "../components/Sidebar";
+import Note from "../components/Note";
 
 const Dashboard = () => {
     const [open, setOpen] = useState(false);
@@ -20,7 +21,7 @@ const Dashboard = () => {
           <Appbar handleDrawerOpen={handleDrawerOpen} />
           <Sidebar open={open} />
           <Box component="main" sx={{ flexGrow: 1, p: 3, margin: "5% auto" }}>
-            {/* <Note notes={note} /> */}
+            <Note/>
           </Box>
         </Box>
       );
