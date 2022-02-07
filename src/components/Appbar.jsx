@@ -28,7 +28,7 @@ const AppBar = styled(MuiAppBar, {
   spacing: 2,
 }));
 
-const Appbar = ({ handleDrawerOpen }) => {
+const Appbar = ({ handleDrawerOpen,handleSearch,title }) => {
   return (
     <AppBar position="fixed">
       <Toolbar style={{ color: "rgba(0, 0, 0, 0.54)" }}>
@@ -45,12 +45,14 @@ const Appbar = ({ handleDrawerOpen }) => {
         </IconButton>
         <img src={keepImage} alt="" style={{width: "2em", height: "2.5em" }} />
         <Typography variant="h6" noWrap style={{ fontWeight: "bold", marginLeft: "10px" }} component="div">
-          Fundoo Note
+         {title}
         </Typography>
         <TextField
           placeholder="Search…"
           style={{ width: "50%", margin: "auto" }}
           variant="outlined"
+          size="small"
+          onChange={e => handleSearch(e.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

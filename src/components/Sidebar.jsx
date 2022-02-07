@@ -59,45 +59,46 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-const Sidebar = ({ open }) => {
+const Sidebar = ({ open,handleTitle }) => {
     console.log("Side Bar open", open);
+  
   return (
     <Drawer variant="permanent" open={open}>
       <DrawerHeader />
       
       <List>
       
-          <ListItem button>
+          <ListItem onClick={()=> handleTitle("Fundoo Note")}>
             <ListItemIcon>
             <LightbulbOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Notes" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={()=> handleTitle("Reminders")}>
             <ListItemIcon>
              <NotificationsNoneOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Reminders" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={()=> handleTitle("Label")}>
             <ListItemIcon>
              <NoteOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Label" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={()=> handleTitle("Edit labels")}>
             <ListItemIcon>
              <EditOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Edit labels" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={()=> handleTitle("Archive")}>
             <ListItemIcon>
              <ArchiveOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Archive" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={()=> handleTitle("Trash")}>
             <ListItemIcon>
              <DeleteOutlineOutlinedIcon/>
             </ListItemIcon>

@@ -5,9 +5,24 @@ import Sidebar from "../components/Sidebar";
 import Note from "../components/Note";
 import noteService from "../service/noteService";
 
+
+
 const Dashboard = () => {
     const [open, setOpen] = useState(false);
     const [note, setNote] = useState([]);
+    const [filteredNote, setFilteredNote] = useState([]);
+    const [search, setSearch] = useState("");
+    const [title,setTitle] = useState('Fundoo Note')
+
+    const handleSearch = (searchValue) => {
+      console.log("Search Value", searchValue);
+      setSearch(searchValue);
+    };
+
+    function handleTitle(title) {
+    console.log("Set Title", title);
+    setTitle(title);
+  }
 
     useEffect(() => {
       fetchitem();
@@ -24,6 +39,14 @@ const Dashboard = () => {
         });
     };
 
+    useEffect(() => {
+      setFilteredNote(
+        note.filter((item) => {
+          return item.title.toLowerCase().includes(search.toLowerCase());
+        })
+      );
+    }, [search, note]);
+
     const handleDrawerOpen = () => {
       console.log("App bar open", open);
         setOpen((prevStates) => {
@@ -34,10 +57,10 @@ const Dashboard = () => {
 
     return (
         <Box sx={{ display: "flex" }}>
-          <Appbar handleDrawerOpen={handleDrawerOpen} />
-          <Sidebar open={open} />
+          <Appbar handleDrawerOpen={handleDrawerOpen} handleSearch={handleSearch} title={title}/>
+          <Sidebar open={open} handleTitle={handleTitle}/>
           <Box component="main" sx={{ flexGrow: 1, p: 3, margin: "5% auto" }}>
-            <Note notes={note}/>
+            <Note notes={filteredNote}/>
           </Box>
         </Box>
       );
