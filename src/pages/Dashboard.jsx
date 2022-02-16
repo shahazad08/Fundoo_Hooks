@@ -6,6 +6,7 @@ import Note from "../components/Note";
 import noteService from "../service/noteService";
 import { useDispatch } from "react-redux";
 import { setNotes } from "../actions/noteActions";
+import AddNote from "../components/AddNote";
 
 const Dashboard = () => {
     const [open, setOpen] = useState(false);
@@ -52,10 +53,11 @@ const Dashboard = () => {
     
 
     return (
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex",position:'fixed'}}>
           <Appbar handleDrawerOpen={handleDrawerOpen}  title={title}/>
           <Sidebar open={open} handleTitle={handleTitle} handleDrawerOpen={handleDrawerOpen}/>
           <Box component="main" sx={{ flexGrow: 1, p: 3, margin: "5% auto" }}>
+          <AddNote/>
             <Note/>
           </Box>
         </Box>
