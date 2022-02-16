@@ -14,6 +14,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
   width: drawerWidth,
+  borderRight: "0px",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -26,6 +27,7 @@ const closedMixin = (theme) => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  borderRight: "0px",
   overflowX: "hidden",
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up("sm")]: {
@@ -59,7 +61,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-const Sidebar = ({ open,handleTitle }) => {
+const Sidebar = ({ open, handleTitle }) => {
     console.log("Side Bar open", open);
   
   return (
@@ -68,7 +70,7 @@ const Sidebar = ({ open,handleTitle }) => {
       
       <List>
       
-          <ListItem onClick={()=> handleTitle("Fundoo Note")}>
+          <ListItem>
             <ListItemIcon>
             <LightbulbOutlinedIcon/>
             </ListItemIcon>
