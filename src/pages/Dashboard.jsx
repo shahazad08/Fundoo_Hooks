@@ -9,64 +9,64 @@ import { setNotes } from "../actions/noteActions";
 import AddNote from "../components/AddNote";
 
 const Dashboard = () => {
-    const [open, setOpen] = useState(false);
-    // const [note, setNote] = useState([]);
-    // const [filteredNote, setFilteredNote] = useState([]);
-    // const [search, setSearch] = useState("");
-    // const [title,setTitle] = useState('Fundoo Note')
-    const dispatch = useDispatch()
+  const [open, setOpen] = useState(false);
+  // const [note, setNote] = useState([]);
+  // const [filteredNote, setFilteredNote] = useState([]);
+  // const [search, setSearch] = useState("");
+  // const [title,setTitle] = useState('Fundoo Note')
+  const dispatch = useDispatch()
 
   //   function handleTitle(title) {
   //   console.log("Set Title", title);
   //   setTitle(title);
   // }
 
-    useEffect(() => {
-      fetchitem();
-    }, []);
+  useEffect(() => {
+    fetchitem();
+  }, []);
 
-    const fetchitem = () => {
-      noteService
-        .getNotes()
-        .then((res) => {
-          // setNote(res.data.message);
-          dispatch(setNotes(res.data.message))
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    // useEffect(() => {
-    //   setFilteredNote(
-    //     note.filter((item) => {
-    //       return item.title.toLowerCase().includes(search.toLowerCase());
-    //     })
-    //   );
-    // }, [search, note]);
+  const fetchitem = () => {
+    noteService
+      .getNotes()
+      .then((res) => {
+        // setNote(res.data.message);
+        dispatch(setNotes(res.data.message))
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // useEffect(() => {
+  //   setFilteredNote(
+  //     note.filter((item) => {
+  //       return item.title.toLowerCase().includes(search.toLowerCase());
+  //     })
+  //   );
+  // }, [search, note]);
 
-    const handleDrawerOpen = () => {
-      console.log("App bar open", open);
-        setOpen((prevStates) => {
-          return !prevStates;
-        });
-      };
-    
+  const handleDrawerOpen = () => {
+    console.log("App bar open", open);
+    setOpen((prevStates) => {
+      return !prevStates;
+    });
+  };
 
-    return (
-        <Box sx={{ display: "flex",position:'fixed'}}>
-          <Appbar handleDrawerOpen={handleDrawerOpen}/>
-          <Sidebar open={open}/>
-          <Box component="main" className="note-container">
-          <AddNote/>
-            <Note/>
-          </Box>
-        </Box>
-      );
-    };
-    
-    export default Dashboard;
 
-    
+  return (
+    <Box sx={{ display: "flex" }}>
+      <Appbar handleDrawerOpen={handleDrawerOpen} />
+      <Sidebar open={open} />
+      <Box component="main" className="note-container">
+        <AddNote />
+        <Note />
+      </Box>
+    </Box>
+  );
+};
+
+export default Dashboard;
+
+
     // const handleSearch = (searchValue) => {
     //   console.log("Search Value", searchValue);
     //   setSearch(searchValue);
