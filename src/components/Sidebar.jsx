@@ -60,6 +60,16 @@ const Drawer = styled(MuiDrawer, {
     "& .MuiDrawer-paper": closedMixin(theme),
   }),
 }));
+const ListItems = styled(ListItem)`
+  &:hover {
+    background-color: #e6e8e6;
+    border-radius:0px 25px 25px 0px
+  }
+  &:focus {
+    background-color: #f5cb90;
+    border-radius:0px 25px 25px 0px
+  }
+`;
 
 const Sidebar = ({ open, handleTitle }) => {
     console.log("Side Bar open", open);
@@ -70,42 +80,42 @@ const Sidebar = ({ open, handleTitle }) => {
       
       <List>
       
-          <ListItem>
+          <ListItems>
             <ListItemIcon>
             <LightbulbOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Notes" />
-          </ListItem>
-          <ListItem button onClick={()=> handleTitle("Reminders")}>
+          </ListItems>
+          <ListItems button onClick={()=> handleTitle("Reminders")}>
             <ListItemIcon>
              <NotificationsNoneOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Reminders" />
-          </ListItem>
-          <ListItem button onClick={()=> handleTitle("Label")}>
+          </ListItems>
+          <ListItems button onClick={()=> handleTitle("Label")}>
             <ListItemIcon>
              <NoteOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Label" />
-          </ListItem>
-          <ListItem button onClick={()=> handleTitle("Edit labels")}>
+          </ListItems>
+          <ListItems button onClick={()=> handleTitle("Edit labels")}>
             <ListItemIcon>
              <EditOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Edit labels" />
-          </ListItem>
-          <ListItem button onClick={()=> handleTitle("Archive")}>
+          </ListItems>
+          <ListItems button onClick={()=> handleTitle("Archive")}>
             <ListItemIcon>
              <ArchiveOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Archive" />
-          </ListItem>
-          <ListItem button onClick={()=> handleTitle("Trash")}>
+          </ListItems>
+          <ListItems button onClick={()=> handleTitle("Trash")}>
             <ListItemIcon>
              <DeleteOutlineOutlinedIcon/>
             </ListItemIcon>
             <ListItemText primary="Trash" />
-          </ListItem>
+          </ListItems>
       </List>
     </Drawer>
   );

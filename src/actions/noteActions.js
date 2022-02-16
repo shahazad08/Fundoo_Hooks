@@ -21,3 +21,11 @@ export const listView = (flag) => {
       payload: flag,
     };
 };
+
+export const addNewNote = (note) => {
+    console.log("Note", note);
+    return {
+      type: ActionTypes.ADD_NEW_NOTE,
+      payload: note,
+    };
+  };
