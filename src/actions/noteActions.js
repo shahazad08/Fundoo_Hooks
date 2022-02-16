@@ -12,4 +12,12 @@ export const setFilteredNotes = (notes) => {
     type: ActionTypes.SET_FILTERED_NOTES,
     payload: notes,
   };
+  
+};
+
+export const listView = (flag) => {
+    return {
+      type: ActionTypes.LIST_VIEW,
+      payload: flag,
+    };
 };

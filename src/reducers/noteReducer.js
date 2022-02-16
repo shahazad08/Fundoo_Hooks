@@ -2,7 +2,8 @@ import { ActionTypes } from "../constants/action-types";
 
 const initialState = {
     notes: [],
-    filteredNotes:[]
+    filteredNotes:[],
+    listView:false
   };
 
   export const noteReducer = (state=initialState, { type, payload }) => {
@@ -11,6 +12,8 @@ const initialState = {
         return {...state,notes:payload}
       case ActionTypes.SET_FILTERED_NOTES:
           return {...state,filteredNotes:payload}
+      case ActionTypes.LIST_VIEW:
+          return {...state, listView:!state.listView}  
       default:
         return state;
     }

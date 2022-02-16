@@ -19,6 +19,8 @@ import "../styles/home.scss";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setFilteredNotes } from "../actions/noteActions";
+import { listView } from "../actions/noteActions";
+import GridViewIcon from "@mui/icons-material/GridView";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -37,9 +39,14 @@ const Appbar = ({ handleDrawerOpen, title }) => {
     const [search, setSearch] = useState("");
     const myNotes = useSelector((state) => state.allNotes.notes);
     const dispatch = useDispatch();
+    const list = useSelector((state) => state.allNotes.listView);
   
     const handleSearch = (searchValue) => {
       setSearch(searchValue);
+    };
+
+    const handleView = () => {
+      dispatch(listView());
     };
   
     useEffect(() => {
@@ -85,10 +92,19 @@ const Appbar = ({ handleDrawerOpen, title }) => {
           }}
         />
           <RefreshOutlinedIcon fontSize="medium" style={{ marginLeft: "15px" }} />
-        <SplitscreenOutlinedIcon
-          fontSize="medium"
-          style={{ marginLeft: "15px" }}
-        />
+          {!list ? (
+          <SplitscreenOutlinedIcon
+            fontSize="medium"
+            onClick={handleView}
+            style={{ marginLeft: "15px" }}
+          />
+        ) : (
+          <GridViewIcon
+            fontSize="medium"
+            onClick={handleView}
+            style={{ marginLeft: "15px" }}
+          />
+        )}
         <SettingsOutlinedIcon
           fontSize="medium"
           style={{ marginLeft: "15px" }}
