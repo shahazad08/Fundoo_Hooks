@@ -4,11 +4,8 @@ import Appbar from "../components/Appbar";
 import Sidebar from "../components/Sidebar";
 import Note from "../components/Note";
 import noteService from "../service/noteService";
-
 import { useDispatch } from "react-redux";
 import { setNotes } from "../actions/noteActions";
-
-
 
 const Dashboard = () => {
     const [open, setOpen] = useState(false);
@@ -16,9 +13,7 @@ const Dashboard = () => {
     // const [filteredNote, setFilteredNote] = useState([]);
     // const [search, setSearch] = useState("");
     const [title,setTitle] = useState('Fundoo Note')
-
     const dispatch = useDispatch()
-
 
     function handleTitle(title) {
     console.log("Set Title", title);
