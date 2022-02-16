@@ -3,6 +3,6 @@ export const ActionTypes = {
     SET_NOTES: "SET_NOTES",
     SET_FILTERED_NOTES: "SET_FILTERED_NOTES",
     LIST_VIEW:"LIST_VIEW",
-    // SET_TITLE:"SET_TITLE",
+    SET_TITLE:"SET_TITLE",
     ADD_NEW_NOTE:"ADD_NEW_NOTE",
   };

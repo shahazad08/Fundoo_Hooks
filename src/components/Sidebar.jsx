@@ -11,6 +11,9 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
+import { useDispatch } from "react-redux";
+import { setTitle } from "../actions/noteActions";
+
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -71,8 +74,13 @@ const ListItems = styled(ListItem)`
   }
 `;
 
-const Sidebar = ({ open, handleTitle }) => {
+const Sidebar = ({ open }) => {
     console.log("Side Bar open", open);
+
+    const dispatch = useDispatch();
+    const handleTitle = (title) => {
+      dispatch(setTitle(title));
+    };
   
   return (
     <Drawer variant="permanent" open={open}>
@@ -80,7 +88,7 @@ const Sidebar = ({ open, handleTitle }) => {
       
       <List>
       
-          <ListItems>
+          <ListItems button onClick={() => handleTitle("Notes")}>
             <ListItemIcon>
             <LightbulbOutlinedIcon/>
             </ListItemIcon>

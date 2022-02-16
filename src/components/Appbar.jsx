@@ -33,13 +33,14 @@ const AppBar = styled(MuiAppBar, {
   spacing: 2,
 }));
 
-const Appbar = ({ handleDrawerOpen, title }) => {
+const Appbar = ({ handleDrawerOpen}) => {
 
   
     const [search, setSearch] = useState("");
     const myNotes = useSelector((state) => state.allNotes.notes);
     const dispatch = useDispatch();
     const list = useSelector((state) => state.allNotes.listView);
+    const title = useSelector((state) => state.allNotes.title);
   
     const handleSearch = (searchValue) => {
       setSearch(searchValue);

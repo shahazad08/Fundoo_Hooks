@@ -4,7 +4,7 @@ const initialState = {
     notes: [],
     filteredNotes:[],
     listView:false,
-    // title: "Notes",
+    title: "Notes",
   };
 
   export const noteReducer = (state=initialState, { type, payload }) => {
@@ -15,8 +15,8 @@ const initialState = {
           return {...state,filteredNotes:payload}
       case ActionTypes.LIST_VIEW:
           return {...state, listView:!state.listView}  
-    //   case ActionTypes.SET_TITLE:
-    //       return { ...state, title: payload };
+       case ActionTypes.SET_TITLE:
+           return { ...state, title: payload };
       case ActionTypes.ADD_NEW_NOTE:
           return { ...state, notes: [...state.notes, payload] };
       default:

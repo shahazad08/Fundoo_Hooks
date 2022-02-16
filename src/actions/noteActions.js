@@ -29,3 +29,10 @@ export const addNewNote = (note) => {
       payload: note,
     };
   };
+
+  export const setTitle = (title) => {
+    return {
+      type: ActionTypes.SET_TITLE,
+      payload: title,
+    };
+  };

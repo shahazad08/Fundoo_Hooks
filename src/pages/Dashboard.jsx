@@ -13,13 +13,13 @@ const Dashboard = () => {
     // const [note, setNote] = useState([]);
     // const [filteredNote, setFilteredNote] = useState([]);
     // const [search, setSearch] = useState("");
-    const [title,setTitle] = useState('Fundoo Note')
+    // const [title,setTitle] = useState('Fundoo Note')
     const dispatch = useDispatch()
 
-    function handleTitle(title) {
-    console.log("Set Title", title);
-    setTitle(title);
-  }
+  //   function handleTitle(title) {
+  //   console.log("Set Title", title);
+  //   setTitle(title);
+  // }
 
     useEffect(() => {
       fetchitem();
@@ -54,9 +54,9 @@ const Dashboard = () => {
 
     return (
         <Box sx={{ display: "flex",position:'fixed'}}>
-          <Appbar handleDrawerOpen={handleDrawerOpen}  title={title}/>
-          <Sidebar open={open} handleTitle={handleTitle} handleDrawerOpen={handleDrawerOpen}/>
-          <Box component="main" sx={{ flexGrow: 1, p: 3, margin: "5% auto" }}>
+          <Appbar handleDrawerOpen={handleDrawerOpen}/>
+          <Sidebar open={open}/>
+          <Box component="main" className="note-container">
           <AddNote/>
             <Note/>
           </Box>
