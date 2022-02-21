@@ -4,17 +4,33 @@ import "../styles/home.scss";
 import { useSelector } from "react-redux";
 
 import { styled } from "@mui/material/styles";
-
+import Popup from "../components/Popup";
 const Cards = styled(Card)`
   &:hover {
     background:#e6e8e6;
   }
 `;
 
-const Note = ({handleUpdate}) => {
+const Note = () => {
  
   const myNotes = useSelector((state) => state.allNotes.filteredNotes);
   const listView = useSelector((state) => state.allNotes.listView)
+  const [isOpen, setIsOpen] = useState(false);
+  const [updateData, setUpdateData] = useState({});
+
+  const handleUpdate = (item,index) => {
+    console.log("Handle Update from Dashboard", item);  // Component data passing from Note to Popup
+    let data ={
+      index:index,
+      item:item
+    }
+    setUpdateData(data);
+    setIsOpen(!isOpen);
+  };
+
+  const handleClose = (item) => {
+    setIsOpen(!isOpen);
+  };
   console.log("My NOtes", myNotes);
     return (
       <Box className="main-container">
@@ -34,6 +50,7 @@ const Note = ({handleUpdate}) => {
             );
           })}
         </Grid>
+        {isOpen && <Popup handleClose={handleClose} item={updateData} />}
       </Box>
     );
   };

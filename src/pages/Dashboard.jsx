@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { setNotes } from "../actions/noteActions";
 import AddNote from "../components/AddNote";
 import "../styles/home.scss";
-import Popup from "../components/Popup";
+
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch()
@@ -38,32 +38,17 @@ const Dashboard = () => {
     });
   };
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [updateData, setUpdateData] = useState({});
-
-  const handleUpdate = (item,index) => {
-    console.log("Handle Update from Dashboard", item);  // Child to parent data passing (Note=> Child, Dashboard=> Parent)
-    let data ={
-      index:index,
-      item:item
-    }
-    setUpdateData(data);
-    setIsOpen(!isOpen);
-  };
-
-  const handleClose = (item) => {
-    setIsOpen(!isOpen);
-  };
+  
 
   return (
     <Box sx={{ display: "flex" }}>
       <Appbar handleDrawerOpen={handleDrawerOpen} />
       <Sidebar open={open} />
       <Box component="main" className="note-container">
-        <AddNote />
-        <Note handleUpdate={handleUpdate} />
+        <AddNote/>
+        <Note/>
       </Box>
-      {isOpen && <Popup handleClose={handleClose} item={updateData} />}
+     
     </Box>
   );
 };
