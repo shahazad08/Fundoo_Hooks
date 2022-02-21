@@ -36,3 +36,11 @@ export const addNewNote = (note) => {
       payload: title,
     };
   };
+
+  export const updateNote = (note) => {
+    console.log("Updatee, note");
+    return {
+      type: ActionTypes.UPDATE_NOTE,
+      payload: note,
+    };
+  };

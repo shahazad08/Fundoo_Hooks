@@ -7,19 +7,12 @@ import noteService from "../service/noteService";
 import { useDispatch } from "react-redux";
 import { setNotes } from "../actions/noteActions";
 import AddNote from "../components/AddNote";
-
+import "../styles/home.scss";
+import Popup from "../components/Popup";
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
-  // const [note, setNote] = useState([]);
-  // const [filteredNote, setFilteredNote] = useState([]);
-  // const [search, setSearch] = useState("");
-  // const [title,setTitle] = useState('Fundoo Note')
   const dispatch = useDispatch()
 
-  //   function handleTitle(title) {
-  //   console.log("Set Title", title);
-  //   setTitle(title);
-  // }
 
   useEffect(() => {
     fetchitem();
@@ -36,13 +29,7 @@ const Dashboard = () => {
         console.log(err);
       });
   };
-  // useEffect(() => {
-  //   setFilteredNote(
-  //     note.filter((item) => {
-  //       return item.title.toLowerCase().includes(search.toLowerCase());
-  //     })
-  //   );
-  // }, [search, note]);
+ 
 
   const handleDrawerOpen = () => {
     console.log("App bar open", open);
@@ -51,6 +38,22 @@ const Dashboard = () => {
     });
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [updateData, setUpdateData] = useState({});
+
+  const handleUpdate = (item,index) => {
+    console.log("Handle Update from Dashboard", item);  // Child to parent data passing (Note=> Child, Dashboard=> Parent)
+    let data ={
+      index:index,
+      item:item
+    }
+    setUpdateData(data);
+    setIsOpen(!isOpen);
+  };
+
+  const handleClose = (item) => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -58,8 +61,9 @@ const Dashboard = () => {
       <Sidebar open={open} />
       <Box component="main" className="note-container">
         <AddNote />
-        <Note />
+        <Note handleUpdate={handleUpdate} />
       </Box>
+      {isOpen && <Popup handleClose={handleClose} item={updateData} />}
     </Box>
   );
 };

@@ -5,4 +5,5 @@ export const ActionTypes = {
     LIST_VIEW:"LIST_VIEW",
     SET_TITLE:"SET_TITLE",
     ADD_NEW_NOTE:"ADD_NEW_NOTE",
+    UPDATE_NOTE:"UPDATE_NOTE"
   };

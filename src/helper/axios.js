@@ -18,4 +18,13 @@ const get = (requestObject) => {
       headers: requestObject.headers
     });
   };
-export default {post, get};
+
+  const put = (requestObject) => {
+    return axios({
+      method: requestObject.method,
+      url: requestObject.url,
+      headers: requestObject.headers,
+      data: requestObject.data,
+    });
+  };
+export default {post, get, put};
