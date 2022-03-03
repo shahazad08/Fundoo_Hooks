@@ -1,29 +1,26 @@
 import { Box, Grid, Card, CardContent, Typography, CardActionArea, } from "@mui/material";
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "../styles/home.scss";
 import { useSelector } from "react-redux";
 
 import { styled } from "@mui/material/styles";
 import Popup from "../components/Popup";
 import NoteFooter from "./NoteFooter";
-const Cards = styled(Card)`
-  &:hover {
-    background:#e6e8e6;
-  }
-`;
+
 
 const Note = () => {
- 
+
   const myNotes = useSelector((state) => state.allNotes.filteredNotes);
   const listView = useSelector((state) => state.allNotes.listView)
   const [isOpen, setIsOpen] = useState(false);
   const [updateData, setUpdateData] = useState({});
+  const [hover, setHover] = useState([]);
 
-  const handleUpdate = (item,index) => {
+  const handleUpdate = (item, index) => {
     console.log("Handle Update from Dashboard", item);  // Component data passing from Note to Popup
-    let data ={
-      index:index,
-      item:item
+    let data = {
+      index: index,
+      item: item
     }
     setUpdateData(data);
     setIsOpen(!isOpen);
@@ -33,28 +30,43 @@ const Note = () => {
     setIsOpen(!isOpen);
   };
   console.log("My NOtes", myNotes);
-    return (
-      <Box className="main-container">
-        <Grid container spacing={4} justifyContent={listView?"center":null} >
-          {myNotes.map((item, index)=> {
-            return(
-              <Grid item xs={12} sm={6} md={listView?8:3} key={item._id}>
-              <Cards onClick={() => handleUpdate(item,index)}>
-                <CardContent>
+  return (
+    <Box className="main-container">
+      <Grid container spacing={4} justifyContent={listView ? "center" : null} >
+        {myNotes.map((item, index) => {
+          return (
+            <Grid item xs={12} sm={6} md={listView ? 8 : 3} key={item._id}>
+              <Card
+                elevation={hover[index] ? 6 : 1}
+                onMouseEnter={() => {
+                  setHover({ [index]: true });
+                }}
+                onMouseLeave={() => {
+                  setHover({ [index]: false });
+                }}
+              >
+                <CardContent onClick={() => handleUpdate(item, index)}>
+
                   <Typography variant="h5">{item.title}</Typography>
                   <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  {item.content}
+                    {item.content}
                   </Typography>
                 </CardContent>
-                <NoteFooter/>
-              </Cards>
+                {hover[index] ? (
+                  <NoteFooter />
+                ) : (
+                  <div style={{ height: "35px" }}></div>
+                )}
+
+
+              </Card>
             </Grid>
-            );
-          })}
-        </Grid>
-        {isOpen && <Popup handleClose={handleClose} item={updateData} />}
-      </Box>
-    );
-  };
-  
-  export default Note;
+          );
+        })}
+      </Grid>
+      {isOpen && <Popup handleClose={handleClose} item={updateData} />}
+    </Box>
+  );
+};
+
+export default Note;

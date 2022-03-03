@@ -7,26 +7,13 @@ import service from "../service/noteService";
 import { useDispatch } from "react-redux";
 import { addTrashNote } from "../actions/noteActions";
 
+
 const NoteFooter = ({ item }) => {
     const dispatch = useDispatch();
-
+    
   const handleTrash = () => {
       console.log("Clicked Trash");
-    // let data = {
-    //   ...item,
-    //   isTrash: true,
-    // };
-    // service
-    //   .updateNotes(data, item._id)
-    //   .then((res) => {
-    //     if (res.data.status === 200) {
-    //         dispatch(addTrashNote(res.data.message));
-    //       console.log(res);
-    //     } else {
-    //       console.log(res);
-    //     }
-    //   })
-    //   .catch((err) => console.log(err.message));
+   
   };
   return (
     <div style={{ display: "flex", justifyContent: "space-around" }}>
