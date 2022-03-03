@@ -10,6 +10,7 @@ import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { Link } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { setTitle } from "../actions/noteActions";
@@ -88,7 +89,7 @@ const Sidebar = ({ open }) => {
       
       <List>
       
-          <ListItems button onClick={() => handleTitle("Notes")}>
+          <ListItems button onClick={() => handleTitle("Notes")} component={Link} to="/Dashboard">
             <ListItemIcon>
             <LightbulbOutlinedIcon/>
             </ListItemIcon>
@@ -118,7 +119,7 @@ const Sidebar = ({ open }) => {
             </ListItemIcon>
             <ListItemText primary="Archive" />
           </ListItems>
-          <ListItems button onClick={()=> handleTitle("Trash")}>
+          <ListItems button onClick={()=> handleTitle("Trash")} component={Link} to="/trash">
             <ListItemIcon>
              <DeleteOutlineOutlinedIcon/>
             </ListItemIcon>

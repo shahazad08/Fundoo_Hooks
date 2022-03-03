@@ -20,6 +20,7 @@ const register = (data) => {
 };
 
 const login = (data) => {
+  console.log("Data from Service");
   let reqobj = {
     method: "post",
     url: url.baseURL+"/user/login",

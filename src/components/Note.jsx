@@ -1,10 +1,11 @@
-import { Box, Grid, Card, CardContent, Typography } from "@mui/material";
+import { Box, Grid, Card, CardContent, Typography, CardActionArea, } from "@mui/material";
 import React,{useState} from "react";
 import "../styles/home.scss";
 import { useSelector } from "react-redux";
 
 import { styled } from "@mui/material/styles";
 import Popup from "../components/Popup";
+import NoteFooter from "./NoteFooter";
 const Cards = styled(Card)`
   &:hover {
     background:#e6e8e6;
@@ -45,6 +46,7 @@ const Note = () => {
                   {item.content}
                   </Typography>
                 </CardContent>
+                <NoteFooter/>
               </Cards>
             </Grid>
             );
