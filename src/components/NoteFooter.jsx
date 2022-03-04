@@ -14,7 +14,7 @@ const NoteFooter = ({ item }) => {
     
   const handleTrash = () => {
       console.log("Clicked Trash");
-      console.log("Item to be delete", item._id);
+      console.log("Item to be move to trash", item._id);
       let data = {
         ...item,
         isTrash: true,

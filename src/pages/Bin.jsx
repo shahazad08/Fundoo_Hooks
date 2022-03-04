@@ -12,6 +12,22 @@ const Bin = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    fetchitem();
+  }, []);
+
+  const fetchitem = () => {
+    noteService
+      .getNotes()
+      .then((res) => {
+        console.log(res);
+        dispatch(setTrashNotes(res.data.message.filter(item => item.isTrash)));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
 
   const handleDrawerOpen = () => {
     setOpen((prevState) => {
