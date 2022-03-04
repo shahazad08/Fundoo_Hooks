@@ -26,8 +26,19 @@ export const noteReducer = (state = initialState, { type, payload }) => {
       return { ...state, notes: newNote }
     case ActionTypes.SET_TRASH_NOTES:
       return { ...state, trash: payload };
+    case ActionTypes.ADD_TRASH_NOTE:  // No need to referesh the pagw when deleted from Dashboard to Trash
+      let updatedNote = state.notes.filter((note) => note._id !== payload._id);
+      let updatedTrashNote = [...state.trash];
+      updatedTrashNote.push(payload);
+      return { ...state, notes: updatedNote, trash: updatedTrashNote };
 
-   
+    case ActionTypes.REMOVE_TRASH_NOTE:
+      let updatedTrash = state.trash.filter((note) => note._id !== payload._id);
+      let updatedNotes = [...state.notes];
+      updatedNotes.push(payload);
+      return { ...state, notes: updatedNotes, trash: updatedTrash };
+
+
 
 
     default:

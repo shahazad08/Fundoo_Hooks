@@ -34,6 +34,23 @@ import {
         })
         .catch((err) => console.log(err));
     };
+    const handleRestore = (item) => {
+      let data = {
+        ...item,
+        isTrash: false,
+      };
+      noteService
+        .updateNote(data, item._id)
+        .then((res) => {
+          if (res.data.status === 200) {
+            dispatch(removeTrashNote(res.data.message));
+            console.log("success");
+          } else {
+            console.log("error");
+          }
+        })
+        .catch((err) => console.log(err.message));
+    };
   
  
   
@@ -73,7 +90,7 @@ import {
                     </IconButton>
                     <IconButton
                       size="small"
-                      // onClick={() => handleRestore(item)}
+                      onClick={() => handleRestore(item)}
                     >
                       <RestoreFromTrashIcon />
                     </IconButton>
