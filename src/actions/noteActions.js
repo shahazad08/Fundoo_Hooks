@@ -44,3 +44,17 @@ export const addNewNote = (note) => {
       payload: note,
     };
   };
+
+  export const setTrashNotes = (note) => {
+    return {
+      type: ActionTypes.SET_TRASH_NOTES,
+      payload: note,
+    };
+  };
+
+  export const addTrashNote = (note) => {
+    return {
+      type: ActionTypes.ADD_TRASH_NOTE,
+      payload: note,
+    };
+  };

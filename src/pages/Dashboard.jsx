@@ -23,7 +23,8 @@ const Dashboard = () => {
       .getNotes()
       .then((res) => {
         // setNote(res.data.message);
-        dispatch(setNotes(res.data.message))
+       // dispatch(setNotes(res.data.message))
+       dispatch(setNotes(res.data.message.filter(item => !item.isTrash)));
       })
       .catch((err) => {
         console.log(err);

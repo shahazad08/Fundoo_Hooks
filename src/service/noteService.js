@@ -56,6 +56,26 @@ const getNotes = () => {
         throw err;
       });
   };
+
+  const deletNote = (id) => {
+    const token = localStorage.getItem("token");
+    let reqobj = {
+      method: "delete",
+      url: url.baseURL + "/notes/" + id,
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    };
+    return AxiosHelper.get(reqobj)
+      .then((response) => {
+        console.log("response");
+        return response;
+      })
+      .catch((err) => {
+        console.log("error occured");
+        throw err;
+      });
+  };
   
   /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
-  export default {getNotes, setNotes, updateNote};
+  export default {getNotes, setNotes, updateNote, deletNote};

@@ -5,6 +5,7 @@ const initialState = {
   filteredNotes: [],
   listView: false,
   title: "Notes",
+  trash: [],
 };
 
 export const noteReducer = (state = initialState, { type, payload }) => {
@@ -23,6 +24,8 @@ export const noteReducer = (state = initialState, { type, payload }) => {
       let newNote = [...state.notes];
       newNote[payload.index] = payload.data;
       return { ...state, notes: newNote }
+    case ActionTypes.SET_TRASH_NOTES:
+      return { ...state, trash: payload };
     default:
       return state;
   }

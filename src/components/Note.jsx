@@ -53,7 +53,7 @@ const Note = () => {
                   </Typography>
                 </CardContent>
                 {hover[index] ? (
-                  <NoteFooter />
+                  <NoteFooter item={item} index={index}/>
                 ) : (
                   <div style={{ height: "35px" }}></div>
                 )}
