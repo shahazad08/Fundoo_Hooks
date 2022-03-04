@@ -23,8 +23,16 @@ import {
    
     const dispatch = useDispatch();
     const handleDelete = (id) => {
-        console.log("Delete Note", id);
-
+      noteService
+        .deletNote(id)
+        .then((res) => {
+          if (res.data.status === 200) {
+            console.log(res);
+          } else {
+            console.log(res);
+          }
+        })
+        .catch((err) => console.log(err));
     };
   
  
@@ -59,7 +67,7 @@ import {
                   <div style={{ display: "flex", justifyContent: "start" }}>
                     <IconButton
                       size="small"
-                      // onClick={() => handleDelete(item._id)}
+                      onClick={() => handleDelete(item._id)}
                     >
                       <DeleteForeverIcon />
                     </IconButton>

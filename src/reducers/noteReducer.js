@@ -26,6 +26,10 @@ export const noteReducer = (state = initialState, { type, payload }) => {
       return { ...state, notes: newNote }
     case ActionTypes.SET_TRASH_NOTES:
       return { ...state, trash: payload };
+
+   
+
+
     default:
       return state;
   }
