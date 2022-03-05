@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Paper, InputBase, Button, Grid } from "@mui/material";
+import { Paper, InputBase, Button, Grid, Tooltip } from "@mui/material";
 import service from "../service/noteService";
 import { useDispatch } from "react-redux";
 import { addNewNote } from "../actions/noteActions";
@@ -58,18 +58,22 @@ const AddNote = () => {
                         />
                     </Grid>
                     <Grid item xs={12} align="right">
+                    <Tooltip title="Submit">
                         <Button
                             style={{ color: "black", textTransform: "none" }}
                             onClick={handleAddNotes}
                         >
                             Submit
                         </Button>
+                        </Tooltip>
+                        <Tooltip title="Close">
                         <Button
                             style={{ color: "black", textTransform: "none" }}
                             onClick={handleClose}
                         >
                             Close
                         </Button>
+                        </Tooltip>
                     </Grid>
                 </Grid>
             )}
