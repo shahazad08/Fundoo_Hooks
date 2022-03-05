@@ -64,3 +64,10 @@ export const addNewNote = (note) => {
       payload: note,
     };
   };
+
+  export const deleteNote = (note) => {
+    return {
+      type: ActionTypes.DELETE_NOTE,
+      payload: note,
+    };
+  };
