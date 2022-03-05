@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IconButton,  Snackbar, Button } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -35,15 +35,21 @@ const NoteFooter = ({ item, handleOpenSnackBar }) => {
   };
   return (
     <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <Tooltip title="Change Color">
       <IconButton size="small">
         <ColorLensOutlinedIcon />
       </IconButton>
+      </Tooltip>
+      <Tooltip title="Add Image">
       <IconButton size="small">
         <InsertPhotoOutlinedIcon />
       </IconButton>
+      </Tooltip>
+      <Tooltip title="Trash">
       <IconButton size="small" onClick={handleTrash}>
         <DeleteOutlineOutlinedIcon />
       </IconButton>
+      </Tooltip>
     </div>
   );
 };

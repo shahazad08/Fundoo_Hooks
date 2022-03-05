@@ -10,7 +10,8 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText
+  DialogContentText,
+  Tooltip,
 } from "@mui/material";
 import React, { useState } from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -122,7 +123,9 @@ const Trash = () => {
         color="inherit"
        onClick={handleCloseSnackBar}
       >
+        <Tooltip title="Close">
         <CloseIcon fontSize="small" />
+        </Tooltip>
       </IconButton>
     </React.Fragment>
   );
@@ -160,13 +163,17 @@ const Trash = () => {
                       size="small"
                       onClick={() => handleDilougOpen(item)}
                     >
-                      <DeleteForeverIcon />
+                       <Tooltip title="Delete forever">
+                        <DeleteForeverIcon />
+                      </Tooltip>
                     </IconButton>
                     <IconButton
                       size="small"
                       onClick={() => handleRestore(item)}
                     >
-                      <RestoreFromTrashIcon />
+                      <Tooltip title="Restore">
+                        <RestoreFromTrashIcon />
+                      </Tooltip>
                     </IconButton>
                   </div>
                 ) : (

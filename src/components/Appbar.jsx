@@ -7,6 +7,7 @@ import {
   IconButton,
   TextField,
   InputAdornment,
+  Tooltip,
 } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import SearchIcon from "@mui/icons-material/Search";
@@ -33,96 +34,116 @@ const AppBar = styled(MuiAppBar, {
   spacing: 2,
 }));
 
-const Appbar = ({ handleDrawerOpen}) => {
+const Appbar = ({ handleDrawerOpen }) => {
 
-  
-    const [search, setSearch] = useState("");
-    const myNotes = useSelector((state) => state.allNotes.notes);
-    const dispatch = useDispatch();
-    const list = useSelector((state) => state.allNotes.listView);
-    const title = useSelector((state) => state.allNotes.title);
-  
-    const handleSearch = (searchValue) => {
-      setSearch(searchValue);
-    };
 
-    const handleView = () => {
-      dispatch(listView());
-    };
-  
-    useEffect(() => {
-      dispatch(
-        setFilteredNotes(
-          myNotes.filter((item) => {
-            return item.title.toLowerCase().includes(search.toLowerCase());
-          })
-        )
-      );
-    }, [search, myNotes]);
+  const [search, setSearch] = useState("");
+  const myNotes = useSelector((state) => state.allNotes.notes);
+  const dispatch = useDispatch();
+  const list = useSelector((state) => state.allNotes.listView);
+  const title = useSelector((state) => state.allNotes.title);
+
+  const handleSearch = (searchValue) => {
+    setSearch(searchValue);
+  };
+
+  const handleView = () => {
+    dispatch(listView());
+  };
+
+  useEffect(() => {
+    dispatch(
+      setFilteredNotes(
+        myNotes.filter((item) => {
+          return item.title.toLowerCase().includes(search.toLowerCase());
+        })
+      )
+    );
+  }, [search, myNotes]);
   return (
     <AppBar position="fixed">
-      <Toolbar style={{ color: "rgba(0, 0, 0, 0.54)" }}>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          sx={{
-            marginRight: "30px",
-          }}
-        >
+    <Toolbar style={{ color: "rgba(0, 0, 0, 0.54)" }}>
+      <IconButton
+        aria-label="open drawer"
+        onClick={handleDrawerOpen}
+        edge="start"
+        sx={{
+          marginRight: "30px",
+        }}
+      >
+        <Tooltip title="Main Menu">
           <MenuIcon />
-        </IconButton>
-        <img src={keepImage} alt="" style={{width: "2em", height: "2.5em" }} />
-        <Typography variant="h6" noWrap style={{ fontWeight: "bold", marginLeft: "10px" }} component="div">
-         {title}
-        </Typography>
-        <TextField
-          placeholder="Search…"
-          style={{ width: "50%", margin: "auto" , backgroundColor: "#F5F5F5"}}
-          variant="outlined"
-          size="small"
-          onChange={(e) => handleSearch(e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon/>
-              </InputAdornment>
-            ),
-            style: { height: "44px" },
-          }}
+        </Tooltip>
+      </IconButton>
+      <img src={keepImage} alt="" style={{ width: "2em", height: "2.5em" }} />
+      <Typography
+        variant="h6"
+        noWrap
+        style={{ fontWeight: "bold", marginLeft: "10px" }}
+        component="div"
+      >
+        {title}
+      </Typography>
+      <TextField
+        placeholder="Search…"
+        style={{ width: "50%", margin: "auto", backgroundColor: "#F5F5F5" }}
+        variant="outlined"
+        size="small"
+        onChange={(e) => handleSearch(e.target.value)}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Tooltip title="Search">
+                <IconButton>
+                  <SearchIcon />
+                </IconButton>
+              </Tooltip>
+            </InputAdornment>
+          ),
+          style: { height: "44px" },
+        }}
+      />
+      <Tooltip title="Refresh">
+        <RefreshOutlinedIcon
+          fontSize="medium"
+          style={{ marginLeft: "15px" }}
         />
-          <RefreshOutlinedIcon fontSize="medium" style={{ marginLeft: "15px" }} />
-          {!list ? (
+      </Tooltip>
+      {!list ? (
+        <Tooltip title="List View">
           <SplitscreenOutlinedIcon
             fontSize="medium"
             onClick={handleView}
             style={{ marginLeft: "15px" }}
           />
-        ) : (
+        </Tooltip>
+      ) : (
+        <Tooltip title="Grid View">
           <GridViewIcon
             fontSize="medium"
             onClick={handleView}
             style={{ marginLeft: "15px" }}
           />
-        )}
+        </Tooltip>
+      )}
+      <Tooltip title="Settings">
         <SettingsOutlinedIcon
           fontSize="medium"
           style={{ marginLeft: "15px" }}
         />
-        <div className="appbar-div">
-          <Typography
-            variant="h6"
-            style={{ fontWeight: "bold", marginRight: "5px" }}
-          >
-            Fundoo
-          </Typography>
-          <AccountCircleIcon fontSize="large" />
-        </div>
-        
-      </Toolbar>
-    </AppBar>
-  );
+      </Tooltip>
+      <div className="appbar-div">
+        <Typography
+          variant="h6"
+          style={{ fontWeight: "bold", marginRight: "5px" }}
+        >
+          Fundoo
+        </Typography>
+        <AccountCircleIcon fontSize="large" />
+      </div>
+    </Toolbar>
+  </AppBar>
+);
 };
-
 export default Appbar;
+
