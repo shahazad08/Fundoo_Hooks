@@ -89,11 +89,29 @@ const Trash = () => {
       .catch((err) => console.log(err.message));
   };
 
+  const handleUndoTrash = () => {
+    let data = {
+      ...undoItem,
+      isTrash: true,
+    };
+    noteService
+      .updateNotes(data, undoItem._id)
+      .then((res) => {
+        if (res.data.status === 200) {
+          dispatch(addTrashNote(res.data.message));
+          handleCloseSnackBar();
+        } else {
+          console.log(res);
+        }
+      })
+      .catch((err) => console.log(err.message));
+  };
+
   const action = (
     <React.Fragment>
       <Button
         size="small"
-       //  onClick={handleUndoTrash}
+         onClick={handleUndoTrash}
         style={{ color: "yellow" }}
       >
         UNDO
@@ -184,7 +202,7 @@ const Trash = () => {
       <Snackbar
         open={open}
         autoHideDuration={6000}
-        // onClose={handleCloseSnackBar}
+        onClose={handleCloseSnackBar}
         message="Note Restored"
         action={action}
       />

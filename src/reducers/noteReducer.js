@@ -38,7 +38,11 @@ export const noteReducer = (state = initialState, { type, payload }) => {
       updatedNotes.push(payload);
       return { ...state, notes: updatedNotes, trash: updatedTrash };
 
-
+      case ActionTypes.DELETE_NOTE:
+        let trashAfterDelete = state.trash.filter(
+          (note) => note._id !== payload._id
+        );
+        return { ...state, trash: trashAfterDelete };
 
 
     default:
