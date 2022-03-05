@@ -9,6 +9,9 @@ import { styled } from "@mui/material/styles";
 import Popup from "../components/Popup";
 import NoteFooter from "./NoteFooter";
 import CloseIcon from "@mui/icons-material/Close";
+import noteService from "../service/noteService";
+import { useDispatch } from "react-redux";
+import { removeTrashNote } from "../actions/noteActions";
 
 
 const Note = () => {
@@ -19,6 +22,7 @@ const Note = () => {
   const [updateData, setUpdateData] = useState({});
   const [hover, setHover] = useState([]);
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   const [undoItem, setundoItem] = useState("");
 
   const handleOpenSnackBar = (item) => {
@@ -33,9 +37,29 @@ const Note = () => {
     setOpen(false);
   };
 
+  const handleRestore = () => {
+    let data = {
+      ...undoItem,
+      isTrash: false,
+    };
+    noteService
+      .updateNote(data, undoItem._id)
+      .then((res) => {
+        if (res.data.status === 200) {
+           dispatch(removeTrashNote(res.data.message));
+          console.log("Restore");
+         // setundoItem("");
+          handleCloseSnackBar();
+        } else {
+          console.log(res);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   const action = (
     <React.Fragment>
-      <Button size="small"  style={{color:"yellow"}}>
+      <Button size="small"  onClick={handleRestore} style={{color:"yellow"}}>
         UNDO
       </Button>
       <IconButton
