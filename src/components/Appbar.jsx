@@ -7,7 +7,8 @@ import {
   IconButton,
   TextField,
   InputAdornment,
-  Tooltip,
+  Tooltip, Button,
+  Popover
 } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import SearchIcon from "@mui/icons-material/Search";
@@ -22,6 +23,7 @@ import { useDispatch } from "react-redux";
 import { setFilteredNotes } from "../actions/noteActions";
 import { listView } from "../actions/noteActions";
 import GridViewIcon from "@mui/icons-material/GridView";
+import { Redirect } from "react-router";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -42,6 +44,7 @@ const Appbar = ({ handleDrawerOpen }) => {
   const dispatch = useDispatch();
   const list = useSelector((state) => state.allNotes.listView);
   const title = useSelector((state) => state.allNotes.title);
+  const [logout, setLogout] = useState(false);
 
   const handleSearch = (searchValue) => {
     setSearch(searchValue);
@@ -51,102 +54,130 @@ const Appbar = ({ handleDrawerOpen }) => {
     dispatch(listView());
   };
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handlePopClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+
+  const handleLogout = () => {
+    console.log("Logout");
+    localStorage.removeItem("token");
+    setLogout(true);
+  };
+
   useEffect(() => {
     dispatch(
       setFilteredNotes(
         myNotes.filter((item) => {
-          return(
+          return (
             item.title.toLowerCase().includes(search.toLowerCase()) ||
-          item.content.toLowerCase().includes(search.toLowerCase())
-          ) 
+            item.content.toLowerCase().includes(search.toLowerCase())
+          )
         })
       )
     );
   }, [search, myNotes]);
   return (
     <AppBar position="fixed">
-    <Toolbar style={{ color: "rgba(0, 0, 0, 0.54)" }}>
-      <IconButton
-        aria-label="open drawer"
-        onClick={handleDrawerOpen}
-        edge="start"
-        sx={{
-          marginRight: "30px",
-        }}
-      >
-        <Tooltip title="Main Menu">
-          <MenuIcon />
-        </Tooltip>
-      </IconButton>
-      <img src={keepImage} alt="" style={{ width: "2em", height: "2.5em" }} />
-      <Typography
-        variant="h6"
-        noWrap
-        style={{ fontWeight: "bold", marginLeft: "10px" }}
-        component="div"
-      >
-        {title}
-      </Typography>
-      <TextField
-        placeholder="Search…"
-        style={{ width: "50%", margin: "auto", backgroundColor: "#F5F5F5" }}
-        variant="outlined"
-        size="small"
-        onChange={(e) => handleSearch(e.target.value)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Tooltip title="Search">
-                <IconButton>
-                  <SearchIcon />
-                </IconButton>
-              </Tooltip>
-            </InputAdornment>
-          ),
-          style: { height: "44px" },
-        }}
-      />
-      <Tooltip title="Refresh">
-        <RefreshOutlinedIcon
-          fontSize="medium"
-          style={{ marginLeft: "15px" }}
-        />
-      </Tooltip>
-      {!list ? (
-        <Tooltip title="List View">
-          <SplitscreenOutlinedIcon
-            fontSize="medium"
-            onClick={handleView}
-            style={{ marginLeft: "15px" }}
-          />
-        </Tooltip>
-      ) : (
-        <Tooltip title="Grid View">
-          <GridViewIcon
-            fontSize="medium"
-            onClick={handleView}
-            style={{ marginLeft: "15px" }}
-          />
-        </Tooltip>
-      )}
-      <Tooltip title="Settings">
-        <SettingsOutlinedIcon
-          fontSize="medium"
-          style={{ marginLeft: "15px" }}
-        />
-      </Tooltip>
-      <div className="appbar-div">
+      <Toolbar style={{ color: "rgba(0, 0, 0, 0.54)" }}>
+        <IconButton
+          aria-label="open drawer"
+          onClick={handleDrawerOpen}
+          edge="start"
+          sx={{
+            marginRight: "30px",
+          }}
+        >
+          <Tooltip title="Main Menu">
+            <MenuIcon />
+          </Tooltip>
+        </IconButton>
+        <img src={keepImage} alt="" style={{ width: "2em", height: "2.5em" }} />
         <Typography
           variant="h6"
-          style={{ fontWeight: "bold", marginRight: "5px" }}
+          noWrap
+          style={{ fontWeight: "bold", marginLeft: "10px" }}
+          component="div"
         >
-          Fundoo
+          {title}
         </Typography>
-        <AccountCircleIcon fontSize="large" />
-      </div>
-    </Toolbar>
-  </AppBar>
-);
+        <TextField
+          placeholder="Search…"
+          style={{ width: "50%", margin: "auto", backgroundColor: "#F5F5F5" }}
+          variant="outlined"
+          size="small"
+          onChange={(e) => handleSearch(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Tooltip title="Search">
+                  <IconButton>
+                    <SearchIcon />
+                  </IconButton>
+                </Tooltip>
+              </InputAdornment>
+            ),
+            style: { height: "44px" },
+          }}
+        />
+        <Tooltip title="Refresh">
+          <RefreshOutlinedIcon
+            fontSize="medium"
+            style={{ marginLeft: "15px" }}
+          />
+        </Tooltip>
+        {!list ? (
+          <Tooltip title="List View">
+            <SplitscreenOutlinedIcon
+              fontSize="medium"
+              onClick={handleView}
+              style={{ marginLeft: "15px" }}
+            />
+          </Tooltip>
+        ) : (
+          <Tooltip title="Grid View">
+            <GridViewIcon
+              fontSize="medium"
+              onClick={handleView}
+              style={{ marginLeft: "15px" }}
+            />
+          </Tooltip>
+        )}
+        <Tooltip title="Settings">
+          <SettingsOutlinedIcon
+            fontSize="medium"
+            style={{ marginLeft: "15px" }}
+          />
+        </Tooltip>
+        <div className="appbar-div">
+          <Tooltip title="Account">
+            <IconButton onClick={handlePopClick}>
+              <AccountCircleIcon fontSize="large" />
+            </IconButton>
+          </Tooltip>
+          <Popover
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handlePopClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+          >
+            <Button onClick={handleLogout}>Logout</Button>
+          </Popover>
+        </div>
+      </Toolbar>
+      {logout ? <Redirect to="/login" /> : null}
+    </AppBar>
+  );
 };
 export default Appbar;
 
