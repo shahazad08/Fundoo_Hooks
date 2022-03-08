@@ -5,7 +5,7 @@ import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import service from "../service/noteService";
 import { useDispatch } from "react-redux";
-import { addTrashNote } from "../actions/noteActions";
+import { addTrashNote, updateNote } from "../actions/noteActions";
 import CircleIcon from "@mui/icons-material/Circle";
 
 const colours = [
@@ -96,6 +96,26 @@ const NoteFooter = ({ item, handleOpenSnackBar, index }) => {
   const handlePopClose = () => {
     setAnchorEl(null);
   };
+
+  const handleColor = (bgColor) => {
+    console.log("Colour", bgColor);
+    let data = {
+      ...item,
+      color: bgColor,
+    };
+    service
+      .updateNote(data, item._id)
+      .then((res) => {
+        if (res.data.status === 200) {
+          dispatch(updateNote({ data: res.data.message, index: index }));
+          handlePopClose();
+          console.log(res);
+        } else {
+          console.log(res);
+        }
+      })
+      .catch((err) => console.log(err.message));
+  };
   return (
     <div style={{ display: "flex", justifyContent: "space-around" }}>
       <Tooltip title="Change Color" onClick={handlePopClick}>
@@ -132,8 +152,8 @@ const NoteFooter = ({ item, handleOpenSnackBar, index }) => {
             return (
               <Grid item xs={3} key={index} style={{width:"10px"}}>
                 <Tooltip >
-                  <IconButton >
-                    <CircleIcon style={{ color: colorCode }} />
+                  <IconButton onClick={() => handleColor(colorCode)} >
+                    <CircleIcon  style={{ color: colorCode }} />
                   </IconButton>
                 </Tooltip>
               </Grid>

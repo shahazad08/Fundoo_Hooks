@@ -9,6 +9,7 @@ const initialState = {
 };
 
 export const noteReducer = (state = initialState, { type, payload }) => {
+  console.log("type & payload", type, payload);
   switch (type) {
     case ActionTypes.SET_NOTES:
       return { ...state, notes: payload }
@@ -19,7 +20,7 @@ export const noteReducer = (state = initialState, { type, payload }) => {
     case ActionTypes.SET_TITLE:
       return { ...state, title: payload };
     case ActionTypes.ADD_NEW_NOTE:
-      return { ...state, notes: [...state.notes, payload] };
+      return { ...state, notes: [ payload, ...state.notes] };
     case ActionTypes.UPDATE_NOTE:
       let newNote = [...state.notes];
       newNote[payload.index] = payload.data;
@@ -28,14 +29,14 @@ export const noteReducer = (state = initialState, { type, payload }) => {
       return { ...state, trash: payload };
     case ActionTypes.ADD_TRASH_NOTE:  // No need to referesh the pagw when deleted from Dashboard to Trash
       let updatedNote = state.notes.filter((note) => note._id !== payload._id);
-      let updatedTrashNote = [...state.trash];
-      updatedTrashNote.push(payload);
+      let updatedTrashNote = [...state.trash,payload];
+     
       return { ...state, notes: updatedNote, trash: updatedTrashNote };
 
     case ActionTypes.REMOVE_TRASH_NOTE:
       let updatedTrash = state.trash.filter((note) => note._id !== payload._id);
-      let updatedNotes = [...state.notes];
-      updatedNotes.push(payload);
+      let updatedNotes = [...state.notes,payload];
+     
       return { ...state, notes: updatedNotes, trash: updatedTrash };
 
       case ActionTypes.DELETE_NOTE:
