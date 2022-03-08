@@ -63,6 +63,7 @@ const Note = () => {
         UNDO
       </Button>
       <IconButton
+      
         size="small"
         aria-label="close"
         color="inherit"
@@ -94,6 +95,7 @@ const Note = () => {
           return (
             <Grid item xs={12} sm={6} md={listView ? 8 : 3} key={item._id}>
               <Card
+              style={{ background: item.color }}
                 elevation={hover[index] ? 6 : 1}
                 onMouseEnter={() => {
                   setHover({ [index]: true });
