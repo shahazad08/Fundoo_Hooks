@@ -116,6 +116,36 @@ const NoteFooter = ({ item, handleOpenSnackBar, index }) => {
       })
       .catch((err) => console.log(err.message));
   };
+
+  const handleImage = (image) => {
+    let data = {
+      ...item,
+      image: image,
+    };
+    service
+      .updateNote(data, item._id)
+      .then((res) => {
+        if (res.data.status === 200) {
+          dispatch(updateNote({ data: res.data.message, index: index }));
+          console.log(res);
+        } else {
+          console.log(res);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const fileHandler = (event) => {
+    const fd = new FormData();
+    fd.append("image", event.target.files[0], event.target.files[0].name);
+    service
+      .setImage(fd)
+      .then((res) => {
+        handleImage(res.data.filename);
+        console.log(res);
+      })
+      .catch((err) => console.log(err.message));
+  };
   return (
     <div style={{ display: "flex", justifyContent: "space-around" }}>
       <Tooltip title="Change Color" onClick={handlePopClick}>
@@ -123,11 +153,20 @@ const NoteFooter = ({ item, handleOpenSnackBar, index }) => {
         <ColorLensOutlinedIcon />
       </IconButton>
       </Tooltip>
-      <Tooltip title="Add Image">
-      <IconButton size="small">
-        <InsertPhotoOutlinedIcon />
-      </IconButton>
-      </Tooltip>
+
+      <input
+        style={{ display: "none" }}
+        id="raised-button-file"
+        type="file"
+        onChange={fileHandler}
+      />
+      <label htmlFor="raised-button-file">
+        <Tooltip title="Upload Image">
+          <IconButton component="span">
+            <InsertPhotoOutlinedIcon />
+          </IconButton>
+        </Tooltip>
+      </label>
       <Tooltip title="Trash">
       <IconButton size="small" onClick={handleTrash}>
         <DeleteOutlineOutlinedIcon />

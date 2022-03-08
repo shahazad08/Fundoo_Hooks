@@ -1,6 +1,6 @@
 import { Box, Grid, Card, CardContent, Typography, CardActionArea,  IconButton,
   Snackbar,
-  Button} from "@mui/material";
+  Button, CardMedia} from "@mui/material";
 import React, { useState } from "react";
 import "../styles/home.scss";
 import { useSelector } from "react-redux";
@@ -106,15 +106,33 @@ const Note = () => {
               >
                 <CardContent onClick={() => handleUpdate(item, index)}>
 
-                  <Typography variant="h5">{item.title}</Typography>
-                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                
+                  {item.image !== "" ? (
+                    <CardMedia
+                      component="img"
+                      image={`http://localhost:3000/images/${item.image}`}
+                      alt="dish"
+                      style={{ height: "150px" }}
+                    />
+                  ) : null}
+
+                  <Typography variant="h6" style={{ fontWeight: "bold" }}>
+                    {item.title}
+                  </Typography>
+                  <Typography
+                    style={{
+                      overflow: "hidden",
+                      height: "3em",
+                    }}
+                    color="text.secondary"
+                  >
                     {item.content}
                   </Typography>
                 </CardContent>
                 {hover[index] ? (
                   <NoteFooter item={item} index={index} handleOpenSnackBar={handleOpenSnackBar}/>
                 ) : (
-                  <div style={{ height: "35px" }}></div>
+                  <div style={{ height: "40px" }}></div>
                 )}
 
 
