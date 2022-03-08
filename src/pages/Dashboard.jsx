@@ -11,10 +11,12 @@ import "../styles/home.scss";
 import { useSelector } from "react-redux";
 import Trash from "../components/Trash";
 
+
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch()
   const title = useSelector((state) => state.allNotes.title);
+  
 
 
   useEffect(() => {
