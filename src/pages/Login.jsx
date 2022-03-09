@@ -11,6 +11,7 @@ import {
   Paper,
   Checkbox,
   FormControlLabel,
+  Alert
 } from "@mui/material";
 import "../styles/login.scss";
 const Login = () => {
@@ -20,6 +21,7 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [success,setSuccess] = useState(false)
+  const [fail,setFail] = useState(false);
 
   const handleSubmit = (e) => {
     let errorFlag = false;
@@ -45,11 +47,13 @@ const Login = () => {
       userService.login(data)
         .then((response)=> {
           if(response.data.status===200) {
+            localStorage.setItem("Account",data.email)
             setSuccess(true)
             localStorage.setItem('token', response.data.message.token)
             console.log("Finally Login Success")
           }
           else{
+            setFail(true)
             console.log("Nope Login failed");
             console.log(response.data);
           }
@@ -125,6 +129,7 @@ const Login = () => {
             </Button>
           </Grid>
         </Grid>
+        {fail && <Alert severity="error" onClose={() => {setFail(false)}}>Login Failed!!</Alert>}
       </Paper>
       {success?<Redirect to="/dashboard"/>:null}
     </form>

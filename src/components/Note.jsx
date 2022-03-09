@@ -115,7 +115,7 @@ const Note = () => {
                       component="img"
                       image={`http://localhost:5000/uploads/images/${item.image}`}
                       alt="dish"
-                      style={{ height: "150px" }}
+                      style={{ minHeight: "150px", maxHeight:"250px"}}
                     />
                   ) : null}
 
@@ -125,7 +125,7 @@ const Note = () => {
                   <Typography
                     style={{
                       overflow: "hidden",
-                      height: "3em",
+                      height: item.image !==""?"3em":"12.5em",
                     }}
                     color="text.secondary"
                   >

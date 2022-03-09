@@ -3,6 +3,7 @@ import registerImage from "../assets/account.svg";
 import RainbowText from "react-rainbow-text";
 import { Link, Redirect } from "react-router-dom";
 import userService from "../service/userService";
+
 import {
   validPassword,
   validEmail,
@@ -18,6 +19,7 @@ import {
   Paper,
   FormControlLabel,
   Checkbox,
+  Alert
 } from "@mui/material";
 import "../styles/registeration.scss";
 
@@ -37,6 +39,7 @@ const Registeration = () => {
   const [confirmPasswordError, setPasswordConfirmError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [success,setSuccess] = useState(false)
+  const [fail,setFail] = useState(false)
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -95,6 +98,7 @@ const Registeration = () => {
             console.log("Registered successfully");
             console.log(response.data);
           }else{
+            setFail(true)
             console.log("Registeration failed");
             console.log(response.data);
           }
@@ -226,6 +230,7 @@ const Registeration = () => {
             <img alt=" " src={registerImage} />
           </Grid>
         </Grid>
+        {fail && <Alert severity="error" onClose={() => {setFail(false)}}>Registeration Failed!!</Alert>}
       </Paper>
       {success?<Redirect to="/login"/>:null}
     </form>

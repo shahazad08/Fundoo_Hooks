@@ -8,7 +8,8 @@ import {
   TextField,
   InputAdornment,
   Tooltip, Button,
-  Popover
+  Popover,
+  Avatar,
 } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import SearchIcon from "@mui/icons-material/Search";
@@ -63,6 +64,7 @@ const Appbar = ({ handleDrawerOpen }) => {
   const handlePopClose = () => {
     setAnchorEl(null);
   };
+  const account = localStorage.getItem("Account");
 
   const open = Boolean(anchorEl);
 
@@ -157,9 +159,16 @@ const Appbar = ({ handleDrawerOpen }) => {
           />
         </Tooltip>
         <div className="appbar-div">
-          <Tooltip title="Account">
+        <Tooltip
+            title={
+              <span>
+                <b>Fundoo Account</b>
+                <p>{account}</p>
+              </span>
+            }
+          >
             <IconButton onClick={handlePopClick}>
-              <AccountCircleIcon fontSize="large" />
+            <Avatar>{account}</Avatar>
             </IconButton>
           </Tooltip>
           <Popover
@@ -171,7 +180,16 @@ const Appbar = ({ handleDrawerOpen }) => {
               horizontal: "left",
             }}
           >
-            <Button onClick={handleLogout}>Logout</Button>
+            <Button
+              onClick={handleLogout}
+              style={{
+                color: "black",
+                textTransform: "none",
+                fontWeight: "bold",
+              }}
+            >
+              Logout
+            </Button>
           </Popover>
         </div>
       </Toolbar>
