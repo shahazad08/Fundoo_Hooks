@@ -12,7 +12,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import noteService from "../service/noteService";
 import { useDispatch } from "react-redux";
 import { removeTrashNote } from "../actions/noteActions";
+//import MySvg from './path-to-svg.svg';
 
+import registerImage from "../assets/account.svg";
 
 const Note = () => {
 
@@ -109,8 +111,9 @@ const Note = () => {
                 
                   {item.image !== "" ? (
                     <CardMedia
+                     
                       component="img"
-                      image={`http://localhost:3000/images/${item.image}`}
+                      image={`http://localhost:5000/uploads/images/${item.image}`}
                       alt="dish"
                       style={{ height: "150px" }}
                     />

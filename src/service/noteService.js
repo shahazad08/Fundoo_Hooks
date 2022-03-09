@@ -78,10 +78,11 @@ const getNotes = () => {
   };
 
   const setImage = (data) => {
+    console.log("Data from frontend", data);
     const token = localStorage.getItem("token");
     let reqobj = {
       method: "post",
-      url: url.baseURL + "/upload-image",
+      url: url.baseURL + "/notes/upload-image",
       headers: {
         Authorization: `bearer ${token}`,
       },

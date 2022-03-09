@@ -118,6 +118,7 @@ const NoteFooter = ({ item, handleOpenSnackBar, index }) => {
   };
 
   const handleImage = (image) => {
+    console.log("Image", image);
     let data = {
       ...item,
       image: image,
@@ -136,8 +137,11 @@ const NoteFooter = ({ item, handleOpenSnackBar, index }) => {
   };
 
   const fileHandler = (event) => {
+    console.log("Event", event);
+   
     const fd = new FormData();
     fd.append("image", event.target.files[0], event.target.files[0].name);
+    console.log("FOrm Data", fd);
     service
       .setImage(fd)
       .then((res) => {
