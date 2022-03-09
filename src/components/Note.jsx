@@ -119,14 +119,12 @@ const Note = () => {
                     />
                   ) : null}
 
-                  <Typography variant="h6" style={{ fontWeight: "bold" }}>
+                  <Typography variant="h6" style={{ fontWeight: "bold" }} align="left">
                     {item.title}
                   </Typography>
                   <Typography
-                    style={{
-                      overflow: "hidden",
-                      height: item.image !==""?"3em":"12.5em",
-                    }}
+                 align="left"
+                 className="item-content"
                     color="text.secondary"
                   >
                     {item.content}

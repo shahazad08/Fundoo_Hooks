@@ -168,7 +168,7 @@ const Appbar = ({ handleDrawerOpen }) => {
             }
           >
             <IconButton onClick={handlePopClick}>
-            <Avatar>{account}</Avatar>
+            <Avatar>{account[0].toLocaleUpperCase()}</Avatar>
             </IconButton>
           </Tooltip>
           <Popover
